@@ -66,7 +66,7 @@ if __name__ == '__main__':
     df = spark.read.option('multiline', 'true').json(_rdd)
 
     parse(df.schema.jsonValue())
-    columns = [col(f).alias(f) for f in flatten_columns]
+    columns = [col(f).alias(str(f).replace('.', '_')) for f in flatten_columns]
 
     df.select(columns).show()
 
